@@ -1,0 +1,27 @@
+# frontend/Dockerfile
+
+# 1) Základní image pro instalaci závislostí
+FROM node:20-alpine AS deps
+WORKDIR /app
+
+COPY package.json package-lock.json* ./
+RUN npm ci
+
+# 2) Build stage – vytvoří .next
+FROM node:20-alpine AS build
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+RUN npm run build
+
+# 3) Produkční image – používá build + node_modules
+FROM node:20-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# potřebujeme node_modules, aby byl k dispozici `next` pro `npm start`
+COPY --from=deps /app/node_modules ./node_modules
+COPY --from=build /app/.next ./.next
+COPY --from=build /app/public ./public

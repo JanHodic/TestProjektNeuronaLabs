@@ -1,0 +1,6 @@
+@TestProjektNeuronaLabs_HostAddress = http://localhost:5022
+
+GET {{TestProjektNeuronaLabs_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
