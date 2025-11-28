@@ -2,6 +2,8 @@ using Neurona.Health.Api.Api.GraphQL.Mutations;
 using Neurona.Health.Api.Api.GraphQL.Queries;
 using Neurona.Health.Api.Application;
 using Neurona.Health.Api.Infrastructure.Data;
+using GraphQL.Server.Ui.Voyager;
+using HotChocolate.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,18 @@ builder.Services
     .AddQueryType<Query>()
     .AddMutationType<Mutation>();
 
+builder.Services.AddEndpointsApiExplorer();
+
 var app = builder.Build();
 
-app.MapGraphQL("/graphql");
+app.MapGraphQL("/graphql").WithOptions(new GraphQLServerOptions
+{
+    Tool = { Enable = true }
+});
+
+// Voyager UI – vizualizace schématu
+app.UseGraphQLVoyager("/voyager", new VoyagerOptions
+{
+    GraphQLEndPoint = "/graphql"
+});
 app.Run();
