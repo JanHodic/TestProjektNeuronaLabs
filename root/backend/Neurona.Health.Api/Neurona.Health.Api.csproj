@@ -10,12 +10,18 @@
     <ItemGroup>
         <PackageReference Include="GraphQL.Server.Ui.Voyager" Version="8.3.3" />
         <PackageReference Include="HotChocolate.AspNetCore" Version="15.1.11" />
+        <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="15.1.11" />
         <PackageReference Include="HotChocolate.Data" Version="15.1.11" />
         <PackageReference Include="HotChocolate.Data.EntityFramework" Version="15.1.11" />
         <PackageReference Include="HotChocolate.Types" Version="15.1.11" />
         <PackageReference Include="HotChocolate.Validation" Version="15.1.11" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.11" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.11" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.11">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
     </ItemGroup>

@@ -1,6 +1,7 @@
 using Neurona.Health.Api.Api.GraphQL.Types;
 using Neurona.Health.Api.Application;
 using Neurona.Health.Api.Domain;
+using HotChocolate.Authorization;
 
 namespace Neurona.Health.Api.Api.GraphQL.Queries;
 
@@ -15,9 +16,11 @@ public class Query
         _patientService = patientService;
     }
 
+    [Authorize]
     public Task<IReadOnlyList<PatientDto>> GetPatients()
         => _patientService.GetPatientsAsync();
 
+    [Authorize]
     public async Task<PatientDetailOutput?> GetPatientById(Guid id)
     {
         var result = await _patientService.GetPatientDetailAsync(id);
