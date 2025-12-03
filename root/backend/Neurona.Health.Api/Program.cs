@@ -17,8 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+/*builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));*/
 
 var jwtSection = builder.Configuration.GetSection("Jwt");
 var jwtKey = Encoding.UTF8.GetBytes(jwtSection["Key"]!);
@@ -48,7 +48,11 @@ builder.Services
     .AddMutationType<Mutation>()
     .AddFiltering()
     .AddSorting()
-    .AddAuthorization();
+    .AddAuthorization()
+    .ModifyRequestOptions(o =>
+    {
+        o.IncludeExceptionDetails = builder.Environment.IsDevelopment();
+    });
 
 builder.Services.AddEndpointsApiExplorer();
 
